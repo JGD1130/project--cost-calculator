@@ -372,4 +372,117 @@ export default function ProjectCostCalculator() {
                   </div>
                   <div>
                     <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: '0 0 0.25rem 0' }}>Project Area</p>
-                    <p style={{ fontSize: '1.125rem', fontWeight: '600', colo
+                    <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', margin: 0 }}>
+                      {formatNumber(results.gsf)} GSF
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Cost Breakdown */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingBottom: '0.75rem',
+                  borderBottom: '1px solid #e5e7eb'
+                }}>
+                  <span style={{ color: '#374151' }}>Average Cost/GSF</span>
+                  <span style={{ fontWeight: '600', color: '#1f2937' }}>
+                    {formatCurrency(results.avgCostPerGSF)}
+                  </span>
+                </div>
+                
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingBottom: '0.75rem',
+                  borderBottom: '1px solid #e5e7eb'
+                }}>
+                  <span style={{ color: '#374151' }}>Base Construction Cost</span>
+                  <span style={{ fontWeight: '600', color: '#1f2937' }}>
+                    {formatCurrency(results.estimatedCost)}
+                  </span>
+                </div>
+
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingBottom: '0.75rem',
+                  borderBottom: '1px solid #e5e7eb'
+                }}>
+                  <span style={{ color: '#374151' }}>
+                    Change Orders ({results.changeOrderPercent.toFixed(1)}%)
+                  </span>
+                  <span style={{ fontWeight: '600', color: '#1f2937' }}>
+                    {formatCurrency(results.changeOrderAmount)}
+                  </span>
+                </div>
+
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '1rem',
+                  background: '#f0fdf4',
+                  borderRadius: '0.5rem'
+                }}>
+                  <span style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937' }}>
+                    Total Estimated Cost
+                  </span>
+                  <span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#16a34a' }}>
+                    {formatCurrency(results.totalWithChangeOrders)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Data Source Note */}
+              <div style={{
+                background: '#eff6ff',
+                border: '1px solid #bfdbfe',
+                borderRadius: '0.5rem',
+                padding: '1rem',
+                display: 'flex',
+                gap: '0.75rem'
+              }}>
+                <Info size={20} color="#2563eb" style={{ flexShrink: 0, marginTop: '0.125rem' }} />
+                <div style={{ fontSize: '0.875rem', color: '#1e3a8a' }}>
+                  <p style={{ fontWeight: '500', margin: '0 0 0.25rem 0' }}>Based on Historical Data</p>
+                  <p style={{ margin: 0 }}>
+                    This estimate is based on {results.numProjects} similar{' '}
+                    {results.projectType.toLowerCase()} projects in your database.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Instructions */}
+        {!isConfigured && (
+          <div style={{
+            background: 'white',
+            borderRadius: '0.5rem',
+            boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)',
+            padding: '1.5rem'
+          }}>
+            <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.75rem' }}>
+              Setup Instructions
+            </h3>
+            <ol style={{ paddingLeft: '1.25rem', color: '#6b7280', fontSize: '0.875rem' }}>
+              <li style={{ marginBottom: '0.5rem' }}>Go to airtable.com/create/tokens and create a new Personal Access Token</li>
+              <li style={{ marginBottom: '0.5rem' }}>Add the scope: "data.records:read"</li>
+              <li style={{ marginBottom: '0.5rem' }}>Add access to your "Project Cost Database" base</li>
+              <li style={{ marginBottom: '0.5rem' }}>Copy the token and paste it above</li>
+              <li style={{ marginBottom: '0.5rem' }}>Enter your Base ID (found in your Airtable URL)</li>
+              <li>Click "Connect to Airtable"</li>
+            </ol>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
